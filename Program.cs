@@ -48,6 +48,7 @@ namespace HW_3_Data_Structures
             Queue<string> tempQueue = new Queue<string>();
 
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            int counter = 1;
 
             while(mainMenuChoice != "4" )
             {
@@ -127,6 +128,65 @@ namespace HW_3_Data_Structures
                     {
                         menuOutput("Queue");
                         choice = Console.ReadLine();
+                        if (choice == "1")
+                        {
+                            Console.Write("Enter a string: ");
+                            input = Console.ReadLine();
+                            ourQueue.Enqueue(input);
+                        }
+                        else if (choice == "2")
+                        {
+                            ourQueue.Clear();
+                            for (int i = 1; i <= 2000; i++)
+                            {
+                                ourQueue.Enqueue("New Entry " + i);
+                            }
+                        }
+                        else if (choice == "3")
+                        {
+                            //Add a error if it's empty
+                            foreach (string s in ourQueue)
+                            {
+                                Console.WriteLine(s);
+                            }
+                        }
+                        else if (choice == "4")
+                        {
+                            Console.Write("Which item would you like to be deleted? ");
+                        }
+                        else if (choice == "5")
+                        {
+                            ourQueue.Clear();
+                        }
+                        else if (choice == "6")
+                        {
+                            Console.Write("Which item would you like to be deleted? ");
+                            input = Console.ReadLine();
+                            bool found = false;
+                            //sw.Start();
+                            foreach (string s in ourQueue)
+                            {
+                                if (input == s)
+                                {
+                                    sw.Stop();
+                                    /*TimeSpan ts = sw.Elapsed;
+
+                                    //We're finding this too quickly :(
+                                    // Format and display the TimeSpan value.
+                                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                                        ts.Hours, ts.Minutes, ts.Seconds,
+                                        ts.Milliseconds / 10);
+                                    Console.WriteLine("Found the item in: " + sw.Elapsed.TotalMilliseconds * 1000000);*/
+                                    found = true;
+                                }
+                            }
+                            if (found == false)
+                            {
+                                Console.WriteLine("ITEM NOT FOUND!");
+                            }
+
+                        }
+
                     }
 
                 }
@@ -136,6 +196,67 @@ namespace HW_3_Data_Structures
                     {
                         menuOutput("Dictionary");
                         choice = Console.ReadLine();
+                        if (choice == "1")
+                        {
+                            Console.Write("Enter a string: ");
+                            input = Console.ReadLine();
+                            ourDictionary.Add(input, counter);
+                            counter++;
+                        }
+                        else if (choice == "2")
+                        {
+                            ourDictionary.Clear();
+                            counter = 2001;
+                            for (int i = 1; i <= 2000; i++)
+                            {
+                                ourDictionary.Add("New Entry " + i, i);
+                            }
+                        }
+                        else if (choice == "3")
+                        {
+                            //Add a error if it's empty
+                            foreach (var s in ourDictionary)
+                            {
+                                Console.WriteLine(s.Key + "\t\t" + s.Value);
+                            }
+                        }
+                        else if (choice == "4")
+                        {
+                            Console.Write("Which item would you like to be deleted? ");
+                        }
+                        else if (choice == "5")
+                        {
+                            ourDictionary.Clear();
+                            counter = 0;
+                        }
+                        else if (choice == "6")
+                        {
+                            Console.Write("Which item are you seaching for? ");
+                            input = Console.ReadLine();
+                            bool found = false;
+                            //sw.Start();
+                            foreach (var s in ourDictionary)
+                            {
+                                if (input == s.Key)
+                                {
+                                    sw.Stop();
+                                    TimeSpan ts = sw.Elapsed;
+
+                                    //We're finding this too quickly :(
+                                    // Format and display the TimeSpan value.
+                                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                                        ts.Hours, ts.Minutes, ts.Seconds,
+                                        ts.Milliseconds / 10);
+                                    Console.WriteLine("Found the item in: " + elapsedTime);
+                                    found = true;
+                                }
+                            }
+                            if (found == false)
+                            {
+                                Console.WriteLine("ITEM NOT FOUND!");
+                            }
+
+                        }
                     }
 
                 }
