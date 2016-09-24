@@ -154,6 +154,10 @@ namespace HW_3_Data_Structures
                         else if(choice == "5")
                         {
                             ourStack.Clear();
+
+                            Console.Write("THE STACK WAS CLEARED.");
+                            Console.WriteLine();
+                            Console.WriteLine();
                         }
                         //Search for an item in the stack
                         else if(choice == "6")
@@ -256,6 +260,10 @@ namespace HW_3_Data_Structures
                         else if (choice == "5")
                         {
                             ourQueue.Clear();
+
+                            Console.Write("THE QUEUE WAS CLEARED.");
+                            Console.WriteLine();
+                            Console.WriteLine();
                         }
                         //Search for an item in the queue
                         else if (choice == "6")
@@ -364,6 +372,10 @@ namespace HW_3_Data_Structures
                         {
                             ourDictionary.Clear();
                             counter = 0;
+
+                            Console.Write("THE DICTIONARY WAS CLEARED.");
+                            Console.WriteLine();
+                            Console.WriteLine();
                         }
                         //Search for an item in the dictionary
                         else if (choice == "6")
