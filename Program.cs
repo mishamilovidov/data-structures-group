@@ -9,7 +9,7 @@ using System.Threading.Tasks;
  *  Names:          Andrew Wiser, Greggory Peck, Misha Milovidov, Shaun Quinton
  *  Date:           2016.09.26
  *  GitHub Repo:    https://github.com/mmilovidov/data-structures-group.git
- *  Description:    A console program that performs a variety of functions on three diffrent data structures (queue, stack, and dictionary) based on                     input from a user.
+ *  Description:    A console program that performs a variety of functions on three diffrent data structures (queue, stack, and dictionary) based on  input from a user.
  */
 
 namespace HW_3_Data_Structures
@@ -20,7 +20,7 @@ namespace HW_3_Data_Structures
         static void mainMenuOutput(List<string> s)
         {
             int i = 1;
-            foreach(string n in s)
+            foreach (string n in s)
             {
                 Console.WriteLine(" " + i + ". " + n);
                 i++;
@@ -42,12 +42,67 @@ namespace HW_3_Data_Structures
             mainMenuOutput(menuChoices);
         }
 
+        //This function checks to make sure an integer is positive
+        static int positiveCheck(int teamNumber)
+        {
+            while (teamNumber < 0)
+            {
+                string sNumber = Convert.ToString(teamNumber);
+                Console.Write("Please enter a positive number: ");
+                sNumber = Console.ReadLine();
+
+                Console.WriteLine();
+
+                teamNumber = numberFormatChecker(sNumber);
+            }
+            return (teamNumber);
+        }
+
+        //This function makes sure that the search option choice is valid
+        static string menuChoice(string choice)
+        {
+            while(choice.ToUpper() != "L" && choice.ToUpper() != "N")
+            {
+                Console.Write("NOT A VALID INPUT. PLEASE ENTER 'L' OR 'N': ");
+                choice = Console.ReadLine();
+            }
+            return choice;
+        }
+
+        //This function makes sure that the input is a valid integer
+        static int numberFormatChecker(string numCheck)
+        {
+            bool intVal = false;
+            int teamNumber = 0;
+            while (intVal == false)
+            {
+                try
+                {
+                    teamNumber = Convert.ToInt32(numCheck);
+                    intVal = true;
+
+                }
+                catch (FormatException)
+                {
+                    Console.Write("Please enter an integer: ");
+                    numCheck = Console.ReadLine();
+
+                    Console.WriteLine();
+                }
+            }
+
+            teamNumber = positiveCheck(teamNumber);
+            return (teamNumber);
+        }
+
         static void Main(string[] args)
         {
             //Initialize variables
             string mainMenuChoice = "Start";
             string input;
-        
+            string sLocation;
+            int iLocation;
+
             //Create main menu list and add items
             List<string> mainMenu = new List<string>();
             mainMenu.Add("Stack");
@@ -74,7 +129,7 @@ namespace HW_3_Data_Structures
             Console.WriteLine("*****************************************************************");
 
             //Display main menu until user enters valid input
-            while(mainMenuChoice != "4" )
+            while (mainMenuChoice != "4")
             {
                 Console.WriteLine("MAIN MENU");
                 mainMenuOutput(mainMenu);
@@ -89,7 +144,7 @@ namespace HW_3_Data_Structures
                 if (mainMenuChoice == "1")
                 {
                     //Display the stack submenu menu until user enters valid input
-                    while(choice != "7")
+                    while (choice != "7")
                     {
                         Console.WriteLine("STACK SUB MENU");
                         menuOutput("Stack");
@@ -98,7 +153,7 @@ namespace HW_3_Data_Structures
                         Console.WriteLine();
 
                         //Add an item to the stack
-                        if(choice == "1")
+                        if (choice == "1")
                         {
                             Console.Write("ENTER A STRING TO ADD TO THE STACK: ");
                             input = Console.ReadLine();
@@ -107,11 +162,11 @@ namespace HW_3_Data_Structures
                             ourStack.Push(input);
                         }
                         //Add 2000 items to the stack
-                        else if(choice == "2")
+                        else if (choice == "2")
                         {
                             ourStack.Clear();
 
-                            for(int i = 1; i <= 2000; i++)
+                            for (int i = 1; i <= 2000; i++)
                             {
                                 ourStack.Push("New Entry " + i);
                             }
@@ -120,7 +175,7 @@ namespace HW_3_Data_Structures
                             Console.WriteLine();
                         }
                         //Display all items in the stack
-                        else if(choice == "3")
+                        else if (choice == "3")
                         {
                             if (ourStack.Count == 0)
                             {
@@ -128,8 +183,9 @@ namespace HW_3_Data_Structures
                                 Console.WriteLine();
                                 Console.WriteLine();
                             }
-                            else {
-                                foreach(string s in ourStack)
+                            else
+                            {
+                                foreach (string s in ourStack)
                                 {
                                     Console.WriteLine(s);
                                 }
@@ -137,7 +193,7 @@ namespace HW_3_Data_Structures
                             }
                         }
                         //Delete an item in the stack
-                        else if(choice == "4")
+                        else if (choice == "4")
                         {
                             if (ourStack.Count == 0)
                             {
@@ -145,13 +201,83 @@ namespace HW_3_Data_Structures
                                 Console.WriteLine();
                                 Console.WriteLine();
                             }
-                            else {
-                                Console.Write("ENTER ITEM YOU WANT TO DELETE: ");
-                                Console.WriteLine();
+                            else
+                            {
+                                string searchtype;
+                                Console.Write("WOULD YOU LIKE TO SEARCH FOR THE ITEM TO DELETE BY LOCATION OR NAME (L FOR LOCATION, N FOR NAME): ");
+                                searchtype = Console.ReadLine();
+                                searchtype = menuChoice(searchtype);
+
+                                if(searchtype.ToUpper() == "L")
+                                {
+                                    bool exitLoop = false;
+                                    while(exitLoop == false)
+                                    {
+                                        Console.Write("Please enter the location of the item you would like to delete.: ");
+                                        sLocation = Console.ReadLine();
+                                        iLocation = numberFormatChecker(sLocation);
+                                        if (iLocation > ourStack.Count)
+                                        {
+                                            Console.WriteLine("NOT A VALID ENTRY. PLEASE ENTER AN INTEGER BETWEEN 0 AND " + ourStack.Count);
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                    
+
+                                }
+                                else
+                                {
+                                    bool exitLoop = false;
+                                    bool found = false;
+                                    int itemLocation = 0;
+                                    int realLocation = 0;
+                                    tempStack.Clear();
+                                    while (exitLoop == false)
+                                    {
+                                        Console.Write("PLEASE ENTER THE NAME OF THE ITEM YOU WOULD LIKE TO DELETE: ");
+                                        string itemDelete = Console.ReadLine();
+                                        
+                                        foreach (string s in ourStack)
+                                        {
+                                            if (itemDelete == s)
+                                            {
+                                                found = true;
+                                                exitLoop = true;
+                                                realLocation = itemLocation;
+                                            }
+                                            else
+                                            {
+                                                itemLocation++;
+                                            }  
+                                        }
+
+                                        if (found == true)
+                                        {
+                                            for(int i=0; i < realLocation; i++)
+                                            {
+                                                tempStack.Push(ourStack.Pop());
+                                            }
+                                            ourStack.Pop();
+                                            for(int i=0; i < tempStack.Count; i++)
+                                            {
+                                                ourStack.Push(tempStack.Pop());
+                                            }
+                                            
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("ITEM NOT FOUND!");
+                                        }
+                                        
+                                    }
+                                }
                             }
                         }
                         //Clear all items in the stack
-                        else if(choice == "5")
+                        else if (choice == "5")
                         {
                             ourStack.Clear();
 
@@ -160,7 +286,7 @@ namespace HW_3_Data_Structures
                             Console.WriteLine();
                         }
                         //Search for an item in the stack
-                        else if(choice == "6")
+                        else if (choice == "6")
                         {
                             Console.Write("ENTER SEARCH TERM: ");
                             input = Console.ReadLine();
@@ -169,9 +295,9 @@ namespace HW_3_Data_Structures
                             bool found = false;
                             sw.Start();
 
-                            foreach(string s in ourStack)
+                            foreach (string s in ourStack)
                             {
-                                if(input == s)
+                                if (input == s)
                                 {
                                     sw.Stop();
 
@@ -181,14 +307,14 @@ namespace HW_3_Data_Structures
                                     found = true;
                                 }
                             }
-                            if(found == false)
+                            if (found == false)
                             {
                                 Console.WriteLine("ITEM NOT FOUND!");
                             }
 
                         }
                     }
-                    
+
                 }
 
                 //If user selects Queue
@@ -234,8 +360,9 @@ namespace HW_3_Data_Structures
                                 Console.WriteLine();
                                 Console.WriteLine();
                             }
-                            else {
-                                foreach(string s in ourQueue)
+                            else
+                            {
+                                foreach (string s in ourQueue)
                                 {
                                     Console.WriteLine(s);
                                 }
@@ -251,7 +378,8 @@ namespace HW_3_Data_Structures
                                 Console.WriteLine();
                                 Console.WriteLine();
                             }
-                            else {
+                            else
+                            {
                                 Console.Write("ENTER ITEM YOU WANT TO DELETE: ");
                                 Console.WriteLine();
                             }
@@ -344,7 +472,8 @@ namespace HW_3_Data_Structures
                                 Console.WriteLine();
                                 Console.WriteLine();
                             }
-                            else {
+                            else
+                            {
                                 foreach (var s in ourDictionary)
                                 {
                                     Console.WriteLine(s.Key + "\t\t" + s.Value);
@@ -352,7 +481,7 @@ namespace HW_3_Data_Structures
                                 Console.WriteLine();
                             }
                         }
-                        //Delete and item in the dictionary
+                        //Delete an item in the dictionary
                         else if (choice == "4")
                         {
                             if (ourDictionary.Count == 0)
@@ -426,7 +555,7 @@ namespace HW_3_Data_Structures
             }
 
             Console.Read();
-            
+
         }
     }
 }
