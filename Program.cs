@@ -249,7 +249,7 @@ namespace HW_3_Data_Structures
                                     while(exitLoop == false)
                                     {
                                         //Gets the location of the item the user would like to delete
-                                        Console.Write("Please enter the location of the item you would like to delete.: ");
+                                        Console.Write("PLEASE ENTER THE LOCATION OF THE ITEM YOU WOULD LIKE TO DELETE: ");
                                         sLocation = Console.ReadLine();
                                         iLocation = numberFormatChecker(sLocation);
 
@@ -269,7 +269,10 @@ namespace HW_3_Data_Structures
                                             }
 
                                             //Delete the item from the stack
-                                            ourStack.Pop();
+                                            if (ourStack.Count != 0)
+                                            {
+                                                ourStack.Pop();
+                                            }
 
                                             //Refill the stack
                                             for (int i = 0; i < realLocation; i++)
@@ -517,7 +520,11 @@ namespace HW_3_Data_Structures
                                             {
                                                 tempQueue.Enqueue(ourQueue.Dequeue());
                                             }
-                                            ourQueue.Dequeue();
+                                            if(ourQueue.Count != 0)
+                                            {
+                                                ourQueue.Dequeue();
+                                            }
+                                            
                                             for (int i = 0; i < realLocation; i++)
                                             {
                                                 ourQueue.Enqueue(tempQueue.Dequeue());
