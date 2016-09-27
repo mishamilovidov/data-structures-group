@@ -155,10 +155,40 @@ namespace HW_3_Data_Structures
                         //Add an item to the stack
                         if (choice == "1")
                         {
+                            
+                            
+
                             Console.Write("ENTER A STRING TO ADD TO THE STACK: ");
                             input = Console.ReadLine();
                             Console.WriteLine();
+                            
+                            // checks for unique data entry
+                            if (ourStack.Count > 0)
+                            {
+                                bool exitLoop = true;
+                                while (exitLoop)
+                                {
 
+                                    
+                                    foreach (string s in ourStack)
+                                                {
+                                                    if (input == s)
+                                                    {
+                                                        System.Console.WriteLine();
+                                                        System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
+                                                        input = Console.ReadLine();
+                                                        
+                                                        
+                                                    }
+                                                    else 
+                                                    {
+                                                        exitLoop = false;
+                                                    }
+                                                }
+
+                                 }
+                            }
+                            System.Console.WriteLine();
                             ourStack.Push(input);
                         }
                         //Add 2000 items to the stack
@@ -322,29 +352,43 @@ namespace HW_3_Data_Structures
                         //Search for an item in the stack
                         else if (choice == "6")
                         {
-                            Console.Write("ENTER SEARCH TERM: ");
-                            input = Console.ReadLine();
-                            Console.WriteLine();
 
-                            bool found = false;
-                            sw.Start();
-
-                            foreach (string s in ourStack)
+                            if (ourStack.Count == 0)
                             {
-                                if (input == s)
+                                Console.Write("THERE'S NOTHING TO DELETE BECAUSE THERE'S NOTHING IN THE STACK!");
+                                Console.WriteLine();
+                                Console.WriteLine();
+                            }
+
+                            else 
+                            {
+                                Console.Write("ENTER SEARCH TERM: ");
+                                input = Console.ReadLine();
+                                Console.WriteLine();
+
+                                bool found = false;
+                                sw.Start();
+
+                                foreach (string s in ourStack)
                                 {
-                                    sw.Stop();
+                                    if (input == s)
+                                    {
+                                        sw.Stop();
 
-                                    Console.WriteLine("FOUND ITEM IN " + (sw.Elapsed.TotalMilliseconds) + " MILLISECONDS.");
-                                    Console.WriteLine();
+                                        Console.WriteLine("FOUND ITEM IN " + (sw.Elapsed.TotalMilliseconds) + " MILLISECONDS.");
+                                        Console.WriteLine();
 
-                                    found = true;
+                                        found = true;
+                                    }
                                 }
+                                if (found == false)
+                                {
+                                    Console.WriteLine("ITEM NOT FOUND!");
+                                }
+
+
                             }
-                            if (found == false)
-                            {
-                                Console.WriteLine("ITEM NOT FOUND!");
-                            }
+                            
 
                         }
                     }
@@ -368,8 +412,37 @@ namespace HW_3_Data_Structures
                         {
                             Console.Write("ENTER A STRING TO ADD TO THE QUEUE: ");
                             input = Console.ReadLine();
-                            Console.WriteLine();
 
+                            
+                            
+                            // checks for unique data entry
+                            if (ourQueue.Count > 0)
+                            {
+                                bool exitLoop = true;
+                                
+                                while (exitLoop)
+                                {
+
+                                    
+                                    foreach (string s in ourQueue)
+                                                {
+                                                    if (input == s)
+                                                    {
+                                                        System.Console.WriteLine();
+                                                        System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
+                                                        input = Console.ReadLine();
+                                                        
+                                                        
+                                                    }
+                                                    else 
+                                                    {
+                                                        exitLoop = false;
+                                                    }
+                                                }
+
+                                }
+                            }
+                            System.Console.WriteLine();
                             ourQueue.Enqueue(input);
                         }
                         //Add 2000 items to the queue
@@ -390,7 +463,7 @@ namespace HW_3_Data_Structures
                         {
                             if (ourQueue.Count == 0)
                             {
-                                Console.Write("THERE'S NOTHING TO DISPLAY BECAUSE THERE'S NOTHING IN THE QUEUE!");
+                                Console.Write("THERE'S NOTHING TO DELETE BECAUSE THERE'S NOTHING IN THE QUEUE!");
                                 Console.WriteLine();
                                 Console.WriteLine();
                             }
@@ -563,6 +636,39 @@ namespace HW_3_Data_Structures
                         {
                             Console.Write("ENTER A STRING TO ADD TO THE DICTIONARY: ");
                             input = Console.ReadLine();
+                            
+                           
+                            // checks for unique data entry
+                            if (ourDictionary.Count > 0)
+                            {
+                                 bool exitLoop = true;
+                                
+                                while (exitLoop)
+                                {
+
+                                    
+                                    foreach (var s in ourDictionary)
+                                    {
+                                        if (input == s.Key)
+                                                {
+                                                    
+                                                    System.Console.WriteLine();
+                                                    System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
+                                                    input = Console.ReadLine();
+                                                        
+                                                        
+                                                }
+                                                    else 
+                                                    {
+                                                        exitLoop = false;
+                                                    }
+                                                }
+
+                                }
+                            }
+
+
+
                             Console.WriteLine();
 
                             ourDictionary.Add(input, counter);
