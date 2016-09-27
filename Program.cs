@@ -48,7 +48,7 @@ namespace HW_3_Data_Structures
             while (teamNumber < 0)
             {
                 string sNumber = Convert.ToString(teamNumber);
-                Console.Write("Please enter a positive number: ");
+                Console.Write("PLEASE ENTER A POSITIVE NUMBER: ");
                 sNumber = Console.ReadLine();
 
                 Console.WriteLine();
@@ -61,7 +61,7 @@ namespace HW_3_Data_Structures
         //This function makes sure that the search option choice is valid
         static string menuChoice(string choice)
         {
-            while(choice.ToUpper() != "L" && choice.ToUpper() != "N")
+            while (choice.ToUpper() != "L" && choice.ToUpper() != "N")
             {
                 Console.Write("NOT A VALID INPUT. PLEASE ENTER 'L' OR 'N': ");
                 choice = Console.ReadLine();
@@ -155,13 +155,13 @@ namespace HW_3_Data_Structures
                         //Add an item to the stack
                         if (choice == "1")
                         {
-                            
-                            
+
+
 
                             Console.Write("ENTER A STRING TO ADD TO THE STACK: ");
                             input = Console.ReadLine();
                             Console.WriteLine();
-                            
+
                             // checks for unique data entry
                             if (ourStack.Count > 0)
                             {
@@ -169,24 +169,24 @@ namespace HW_3_Data_Structures
                                 while (exitLoop)
                                 {
 
-                                    
-                                    foreach (string s in ourStack)
-                                                {
-                                                    if (input == s)
-                                                    {
-                                                        System.Console.WriteLine();
-                                                        System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
-                                                        input = Console.ReadLine();
-                                                        
-                                                        
-                                                    }
-                                                    else 
-                                                    {
-                                                        exitLoop = false;
-                                                    }
-                                                }
 
-                                 }
+                                    foreach (string s in ourStack)
+                                    {
+                                        if (input == s)
+                                        {
+                                            System.Console.WriteLine();
+                                            System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
+                                            input = Console.ReadLine();
+
+
+                                        }
+                                        else
+                                        {
+                                            exitLoop = false;
+                                        }
+                                    }
+
+                                }
                             }
                             System.Console.WriteLine();
                             ourStack.Push(input);
@@ -201,7 +201,7 @@ namespace HW_3_Data_Structures
                                 ourStack.Push("New Entry " + i);
                             }
 
-                            Console.Write("ADDED 2000 ITEMS TO THE STACK\n");
+                            Console.Write("ADDED 2000 ITEMS TO THE STACK");
                             Console.WriteLine();
                         }
                         //Display all items in the stack
@@ -234,6 +234,7 @@ namespace HW_3_Data_Structures
                             }
                             else
                             {
+                                tempStack.Clear();
                                 string searchtype;
 
                                 //Determines how the user would like to delete an iteam
@@ -242,11 +243,11 @@ namespace HW_3_Data_Structures
                                 searchtype = menuChoice(searchtype);
 
                                 //Delete an item based on the location
-                                if(searchtype.ToUpper() == "L")
+                                if (searchtype.ToUpper() == "L")
                                 {
                                     bool exitLoop = false;
                                     int realLocation;
-                                    while(exitLoop == false)
+                                    while (exitLoop == false)
                                     {
                                         //Gets the location of the item the user would like to delete
                                         Console.Write("PLEASE ENTER THE LOCATION OF THE ITEM YOU WOULD LIKE TO DELETE: ");
@@ -254,7 +255,7 @@ namespace HW_3_Data_Structures
                                         iLocation = numberFormatChecker(sLocation);
 
                                         //Makes sure that the user does not input a location greater than the size of the stack
-                                        if (iLocation > ourStack.Count)
+                                        if (iLocation > ourStack.Count - 1)
                                         {
                                             Console.WriteLine("NOT A VALID ENTRY. PLEASE ENTER AN INTEGER BETWEEN 0 AND " + (ourStack.Count - 1));
                                         }
@@ -272,19 +273,26 @@ namespace HW_3_Data_Structures
                                             if (ourStack.Count != 0)
                                             {
                                                 ourStack.Pop();
+                                                for (int i = 0; i < realLocation; i++)
+                                                {
+                                                    ourStack.Push(tempStack.Pop());
+                                                }
                                             }
 
-                                            //Refill the stack
-                                            for (int i = 0; i < realLocation; i++)
+                                            else
                                             {
-                                                ourStack.Push(tempStack.Pop());
+                                                for (int i = 0; i < realLocation-1; i++)
+                                                {
+                                                    ourStack.Push(tempStack.Pop());
+                                                }
                                             }
+                                            
 
                                             Console.WriteLine("\nITEM DELETED!\n");
                                             exitLoop = true;
                                         }
                                     }
-                                    
+
 
                                 }
                                 else
@@ -300,7 +308,7 @@ namespace HW_3_Data_Structures
                                         //Gets the location of the item the user would like to delete
                                         Console.Write("PLEASE ENTER THE NAME OF THE ITEM YOU WOULD LIKE TO DELETE: ");
                                         string itemDelete = Console.ReadLine();
-                                        
+
                                         //Searches for the name
                                         foreach (string s in ourStack)
                                         {
@@ -313,13 +321,13 @@ namespace HW_3_Data_Structures
                                             else
                                             {
                                                 itemLocation++;
-                                            }  
+                                            }
                                         }
 
                                         //Fills the temporary stack
                                         if (found == true)
                                         {
-                                            for(int i=0; i < realLocation; i++)
+                                            for (int i = 0; i < realLocation; i++)
                                             {
                                                 tempStack.Push(ourStack.Pop());
                                             }
@@ -328,7 +336,7 @@ namespace HW_3_Data_Structures
                                             ourStack.Pop();
 
                                             //Refills the stack
-                                            for(int i=0; i < realLocation; i++)
+                                            for (int i = 0; i < realLocation; i++)
                                             {
                                                 ourStack.Push(tempStack.Pop());
                                             }
@@ -336,9 +344,9 @@ namespace HW_3_Data_Structures
                                         }
                                         else
                                         {
-                                            Console.WriteLine("\nITEM NOT FOUND!\n");
+                                            Console.WriteLine("ITEM NOT FOUND!");
                                         }
-                                        
+
                                     }
                                 }
                             }
@@ -363,7 +371,7 @@ namespace HW_3_Data_Structures
                                 Console.WriteLine();
                             }
 
-                            else 
+                            else
                             {
                                 Console.Write("ENTER SEARCH TERM: ");
                                 input = Console.ReadLine();
@@ -386,12 +394,13 @@ namespace HW_3_Data_Structures
                                 }
                                 if (found == false)
                                 {
-                                    Console.WriteLine("ITEM NOT FOUND!\n");
+                                    Console.WriteLine("ITEM NOT FOUND!");
                                 }
 
 
                             }
-                            
+
+
                         }
                     }
 
@@ -415,32 +424,32 @@ namespace HW_3_Data_Structures
                             Console.Write("ENTER A STRING TO ADD TO THE QUEUE: ");
                             input = Console.ReadLine();
 
-                            
-                            
+
+
                             // checks for unique data entry
                             if (ourQueue.Count > 0)
                             {
                                 bool exitLoop = true;
-                                
+
                                 while (exitLoop)
                                 {
 
-                                    
+
                                     foreach (string s in ourQueue)
-                                                {
-                                                    if (input == s)
-                                                    {
-                                                        System.Console.WriteLine();
-                                                        System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
-                                                        input = Console.ReadLine();
-                                                        
-                                                        
-                                                    }
-                                                    else 
-                                                    {
-                                                        exitLoop = false;
-                                                    }
-                                                }
+                                    {
+                                        if (input == s)
+                                        {
+                                            System.Console.WriteLine();
+                                            System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
+                                            input = Console.ReadLine();
+
+
+                                        }
+                                        else
+                                        {
+                                            exitLoop = false;
+                                        }
+                                    }
 
                                 }
                             }
@@ -457,7 +466,7 @@ namespace HW_3_Data_Structures
                                 ourQueue.Enqueue("New Entry " + i);
                             }
 
-                            Console.Write("ADDED 2000 ITEMS TO THE QUEUE\n");
+                            Console.Write("ADDED 2000 ITEMS TO THE QUEUE");
                             Console.WriteLine();
                         }
                         //Display all items in the queue
@@ -492,6 +501,7 @@ namespace HW_3_Data_Structures
                             //Asks the user to see if they would like to delete by name or by location
                             else
                             {
+                                tempQueue.Clear();
                                 string searchtype;
                                 Console.Write("WOULD YOU LIKE TO SEARCH FOR THE ITEM TO DELETE BY LOCATION OR NAME (L FOR LOCATION, N FOR NAME): ");
                                 searchtype = Console.ReadLine();
@@ -508,7 +518,7 @@ namespace HW_3_Data_Structures
                                         sLocation = Console.ReadLine();
                                         iLocation = numberFormatChecker(sLocation);
 
-                                        if (iLocation > ourQueue.Count)
+                                        if (iLocation > ourQueue.Count - 1)
                                         {
                                             Console.WriteLine("\nNOT A VALID ENTRY. PLEASE ENTER AN INTEGER BETWEEN 0 AND " + (ourQueue.Count - 1) + "\n");
                                         }
@@ -519,14 +529,20 @@ namespace HW_3_Data_Structures
                                             {
                                                 tempQueue.Enqueue(ourQueue.Dequeue());
                                             }
-                                            if(ourQueue.Count != 0)
+                                            if (ourQueue.Count != 0)
                                             {
                                                 ourQueue.Dequeue();
+                                                for (int i = 0; i < realLocation; i++)
+                                                {
+                                                    ourQueue.Enqueue(tempQueue.Dequeue());
+                                                }
                                             }
-                                            
-                                            for (int i = 0; i < realLocation; i++)
+                                            else
                                             {
-                                                ourQueue.Enqueue(tempQueue.Dequeue());
+                                                for (int i = 0; i < realLocation-1; i++)
+                                                {
+                                                    ourQueue.Enqueue(tempQueue.Dequeue());
+                                                }
                                             }
                                             Console.WriteLine("\nITEM DELETED!\n");
                                             exitLoop = true;
@@ -616,7 +632,7 @@ namespace HW_3_Data_Structures
                             }
                             if (found == false)
                             {
-                                Console.WriteLine("\nITEM NOT FOUND!\n");
+                                Console.WriteLine("ITEM NOT FOUND!");
                             }
 
                         }
@@ -642,33 +658,33 @@ namespace HW_3_Data_Structures
                         {
                             Console.Write("ENTER A STRING TO ADD TO THE DICTIONARY: ");
                             input = Console.ReadLine();
-                            
-                           
+
+
                             // checks for unique data entry
                             if (ourDictionary.Count > 0)
                             {
-                                 bool exitLoop = true;
-                                
+                                bool exitLoop = true;
+
                                 while (exitLoop)
                                 {
 
-                                    
+
                                     foreach (var s in ourDictionary)
                                     {
                                         if (input == s.Key)
-                                                {
-                                                    
-                                                    System.Console.WriteLine();
-                                                    System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
-                                                    input = Console.ReadLine();
-                                                        
-                                                        
-                                                }
-                                                    else 
-                                                    {
-                                                        exitLoop = false;
-                                                    }
-                                                }
+                                        {
+
+                                            System.Console.WriteLine();
+                                            System.Console.Write("PLEASE ENTER A UNIQUE VALUE: ");
+                                            input = Console.ReadLine();
+
+
+                                        }
+                                        else
+                                        {
+                                            exitLoop = false;
+                                        }
+                                    }
 
                                 }
                             }
@@ -692,7 +708,7 @@ namespace HW_3_Data_Structures
                                 ourDictionary.Add("New Entry " + i, i);
                             }
 
-                            Console.Write("ADDED 2000 ITEMS TO THE DICTIONARY\n");
+                            Console.Write("ADDED 2000 ITEMS TO THE DICTIONARY");
                             Console.WriteLine();
                         }
                         //Display all items in the dictionary 
@@ -725,7 +741,7 @@ namespace HW_3_Data_Structures
                             }
                             else
                             {
-                                
+
                                 bool exitLoop = false;
                                 while (exitLoop == false)
                                 {
@@ -789,7 +805,7 @@ namespace HW_3_Data_Structures
                             }
                             if (found == false)
                             {
-                                Console.WriteLine("ITEM NOT FOUND!\n");
+                                Console.WriteLine("ITEM NOT FOUND!");
                             }
 
                         }
