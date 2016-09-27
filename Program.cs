@@ -195,6 +195,7 @@ namespace HW_3_Data_Structures
                         //Delete an item in the stack
                         else if (choice == "4")
                         {
+                            //Ensures there is at least one item in the stack
                             if (ourStack.Count == 0)
                             {
                                 Console.Write("THERE'S NOTHING TO DELETE BECAUSE THERE'S NOTHING IN THE STACK!");
@@ -204,25 +205,50 @@ namespace HW_3_Data_Structures
                             else
                             {
                                 string searchtype;
+
+                                //Determines how the user would like to delete an iteam
                                 Console.Write("WOULD YOU LIKE TO SEARCH FOR THE ITEM TO DELETE BY LOCATION OR NAME (L FOR LOCATION, N FOR NAME): ");
                                 searchtype = Console.ReadLine();
                                 searchtype = menuChoice(searchtype);
 
+                                //Delete an item based on the location
                                 if(searchtype.ToUpper() == "L")
                                 {
                                     bool exitLoop = false;
+                                    int realLocation;
                                     while(exitLoop == false)
                                     {
+                                        //Gets the location of the item the user would like to delete
                                         Console.Write("Please enter the location of the item you would like to delete.: ");
                                         sLocation = Console.ReadLine();
                                         iLocation = numberFormatChecker(sLocation);
+
+                                        //Makes sure that the user does not input a location greater than the size of the stack
                                         if (iLocation > ourStack.Count)
                                         {
-                                            Console.WriteLine("NOT A VALID ENTRY. PLEASE ENTER AN INTEGER BETWEEN 0 AND " + ourStack.Count);
+                                            Console.WriteLine("NOT A VALID ENTRY. PLEASE ENTER AN INTEGER BETWEEN 0 AND " + (ourStack.Count - 1));
                                         }
                                         else
                                         {
+                                            realLocation = iLocation;
 
+                                            //Fill up the temporary stack
+                                            for (int i = 0; i < realLocation; i++)
+                                            {
+                                                tempStack.Push(ourStack.Pop());
+                                            }
+
+                                            //Delete the item from the stack
+                                            ourStack.Pop();
+
+                                            //Refill the stack
+                                            for (int i = 0; i < realLocation; i++)
+                                            {
+                                                ourStack.Push(tempStack.Pop());
+                                            }
+
+                                            Console.WriteLine("\nITEM DELETED!\n");
+                                            exitLoop = true;
                                         }
                                     }
                                     
@@ -230,6 +256,7 @@ namespace HW_3_Data_Structures
                                 }
                                 else
                                 {
+                                    //Option to delete an item based on the name of the item
                                     bool exitLoop = false;
                                     bool found = false;
                                     int itemLocation = 0;
@@ -237,9 +264,11 @@ namespace HW_3_Data_Structures
                                     tempStack.Clear();
                                     while (exitLoop == false)
                                     {
+                                        //Gets the location of the item the user would like to delete
                                         Console.Write("PLEASE ENTER THE NAME OF THE ITEM YOU WOULD LIKE TO DELETE: ");
                                         string itemDelete = Console.ReadLine();
                                         
+                                        //Searches for the name
                                         foreach (string s in ourStack)
                                         {
                                             if (itemDelete == s)
@@ -254,18 +283,23 @@ namespace HW_3_Data_Structures
                                             }  
                                         }
 
+                                        //Fills the temporary stack
                                         if (found == true)
                                         {
                                             for(int i=0; i < realLocation; i++)
                                             {
                                                 tempStack.Push(ourStack.Pop());
                                             }
+
+                                            //Removes the item from the stack
                                             ourStack.Pop();
-                                            for(int i=0; i < tempStack.Count; i++)
+
+                                            //Refills the stack
+                                            for(int i=0; i < realLocation; i++)
                                             {
                                                 ourStack.Push(tempStack.Pop());
                                             }
-                                            
+                                            Console.WriteLine("\nITEM DELETED!\n");
                                         }
                                         else
                                         {
@@ -372,16 +406,102 @@ namespace HW_3_Data_Structures
                         //Delete an item in the queue
                         else if (choice == "4")
                         {
+                            //Informs the user if there is nothing
                             if (ourQueue.Count == 0)
                             {
                                 Console.Write("THERE'S NOTHING TO DELETE BECAUSE THERE'S NOTHING IN THE QUEUE!");
                                 Console.WriteLine();
                                 Console.WriteLine();
                             }
+
+                            //Asks the user to see if they would like to delete by name or by location
                             else
                             {
-                                Console.Write("ENTER ITEM YOU WANT TO DELETE: ");
-                                Console.WriteLine();
+                                string searchtype;
+                                Console.Write("WOULD YOU LIKE TO SEARCH FOR THE ITEM TO DELETE BY LOCATION OR NAME (L FOR LOCATION, N FOR NAME): ");
+                                searchtype = Console.ReadLine();
+                                searchtype = menuChoice(searchtype);
+
+                                //If the user selects to delete by location
+                                if (searchtype.ToUpper() == "L")
+                                {
+                                    bool exitLoop = false;
+                                    int realLocation;
+                                    while (exitLoop == false)
+                                    {
+                                        Console.Write("PLEASE ENTER THE LOCATION OF THE ITEM YOU WOULD LIKE TO DELETE: ");
+                                        sLocation = Console.ReadLine();
+                                        iLocation = numberFormatChecker(sLocation);
+
+                                        if (iLocation > ourQueue.Count)
+                                        {
+                                            Console.WriteLine("\nNOT A VALID ENTRY. PLEASE ENTER AN INTEGER BETWEEN 0 AND " + (ourQueue.Count - 1) + "\n");
+                                        }
+                                        else
+                                        {
+                                            realLocation = iLocation;
+                                            for (int i = 0; i < realLocation; i++)
+                                            {
+                                                tempQueue.Enqueue(ourQueue.Dequeue());
+                                            }
+                                            ourQueue.Dequeue();
+                                            for (int i = 0; i < realLocation; i++)
+                                            {
+                                                ourQueue.Enqueue(tempQueue.Dequeue());
+                                            }
+                                            Console.WriteLine("\nITEM DELETED!\n");
+                                            exitLoop = true;
+                                        }
+                                    }
+
+
+                                }
+                                //If user selects to delete by name
+                                else
+                                {
+                                    bool exitLoop = false;
+                                    bool found = false;
+                                    int itemLocation = 0;
+                                    int realLocation = 0;
+                                    tempQueue.Clear();
+                                    while (exitLoop == false)
+                                    {
+                                        Console.Write("PLEASE ENTER THE NAME OF THE ITEM YOU WOULD LIKE TO DELETE: ");
+                                        string itemDelete = Console.ReadLine();
+
+                                        foreach (string s in ourQueue)
+                                        {
+                                            if (itemDelete == s)
+                                            {
+                                                found = true;
+                                                exitLoop = true;
+                                                realLocation = itemLocation;
+                                            }
+                                            else
+                                            {
+                                                itemLocation++;
+                                            }
+                                        }
+                                        if (found == true)
+                                        {
+                                            for (int i = 0; i < realLocation; i++)
+                                            {
+                                                tempQueue.Enqueue(ourQueue.Dequeue());
+                                            }
+                                            ourQueue.Dequeue();
+                                            for (int i = 0; i < realLocation; i++)
+                                            {
+                                                ourQueue.Enqueue(tempQueue.Dequeue());
+                                            }
+                                            Console.WriteLine("\nITEM DELETED!\n");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("\nITEM NOT FOUND!\n");
+                                        }
+
+                                    }
+                                }
                             }
                         }
                         //Clear all items in the queue
@@ -484,6 +604,7 @@ namespace HW_3_Data_Structures
                         //Delete an item in the dictionary
                         else if (choice == "4")
                         {
+                            string dictionaryKey = "";
                             if (ourDictionary.Count == 0)
                             {
                                 Console.Write("THERE'S NOTHING TO DELETE BECAUSE THERE'S NOTHING IN THE DICTIONARY!");
@@ -492,8 +613,34 @@ namespace HW_3_Data_Structures
                             }
                             else
                             {
-                                Console.Write("ENTER ITEM YOU WANT TO DELETE: ");
-                                Console.WriteLine();
+                                
+                                bool exitLoop = false;
+                                while (exitLoop == false)
+                                {
+                                    Console.Write("ENTER KEY YOU WANT TO DELETE: ");
+                                    dictionaryKey = Console.ReadLine();
+                                    bool found = false;
+
+                                    foreach (var s in ourDictionary)
+                                    {
+                                        if (dictionaryKey == s.Key)
+                                        {
+
+                                            found = true;
+
+                                            exitLoop = true;
+
+                                            counter--;
+                                        }
+                                    }
+                                    if (found == false)
+                                    {
+                                        Console.WriteLine("\nKEY NOT FOUND!\n");
+                                    }
+
+                                }
+                                ourDictionary.Remove(dictionaryKey);
+                                Console.WriteLine("\nITEM DELETED!\n");
                             }
                         }
                         //Clear all items in the dictionary
