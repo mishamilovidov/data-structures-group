@@ -201,7 +201,7 @@ namespace HW_3_Data_Structures
                                 ourStack.Push("New Entry " + i);
                             }
 
-                            Console.Write("ADDED 2000 ITEMS TO THE STACK");
+                            Console.Write("ADDED 2000 ITEMS TO THE STACK\n");
                             Console.WriteLine();
                         }
                         //Display all items in the stack
@@ -336,7 +336,7 @@ namespace HW_3_Data_Structures
                                         }
                                         else
                                         {
-                                            Console.WriteLine("ITEM NOT FOUND!");
+                                            Console.WriteLine("\nITEM NOT FOUND!\n");
                                         }
                                         
                                     }
@@ -386,13 +386,12 @@ namespace HW_3_Data_Structures
                                 }
                                 if (found == false)
                                 {
-                                    Console.WriteLine("ITEM NOT FOUND!");
+                                    Console.WriteLine("ITEM NOT FOUND!\n");
                                 }
 
 
                             }
                             
-
                         }
                     }
 
@@ -458,7 +457,7 @@ namespace HW_3_Data_Structures
                                 ourQueue.Enqueue("New Entry " + i);
                             }
 
-                            Console.Write("ADDED 2000 ITEMS TO THE QUEUE");
+                            Console.Write("ADDED 2000 ITEMS TO THE QUEUE\n");
                             Console.WriteLine();
                         }
                         //Display all items in the queue
@@ -617,7 +616,7 @@ namespace HW_3_Data_Structures
                             }
                             if (found == false)
                             {
-                                Console.WriteLine("ITEM NOT FOUND!");
+                                Console.WriteLine("\nITEM NOT FOUND!\n");
                             }
 
                         }
@@ -693,7 +692,7 @@ namespace HW_3_Data_Structures
                                 ourDictionary.Add("New Entry " + i, i);
                             }
 
-                            Console.Write("ADDED 2000 ITEMS TO THE DICTIONARY");
+                            Console.Write("ADDED 2000 ITEMS TO THE DICTIONARY\n");
                             Console.WriteLine();
                         }
                         //Display all items in the dictionary 
@@ -790,7 +789,7 @@ namespace HW_3_Data_Structures
                             }
                             if (found == false)
                             {
-                                Console.WriteLine("ITEM NOT FOUND!");
+                                Console.WriteLine("ITEM NOT FOUND!\n");
                             }
 
                         }
